@@ -1,0 +1,58 @@
+export const userSchema = {
+  firstName: {
+    order: 1,
+    type: "string",
+    slug: "firstName",
+    label: "First Name",
+    required: true,
+  },
+  lastName: {
+    order: 2,
+    type: "string",
+    slug: "lastName",
+    label: "Last Name",
+    required: true,
+  },
+  emailAddress: {
+    order: 3,
+    type: "email",
+    slug: "emailAddress",
+    label: "Email Address",
+    required: true,
+  },
+  username: {
+    order: 4,
+    type: "string",
+    slug: "username",
+    label: "Username",
+    required: true,
+  },
+  password: {
+    order: 5,
+    type: "password",
+    slug: "password",
+    label: "Password",
+    required: true,
+  },
+  address: {
+    order: 6,
+    type: "string",
+    slug: "address",
+    label: "Address",
+    required: false,
+  },
+  postcode: {
+    order: 7,
+    type: "string",
+    slug: "postcode",
+    label: "Postcode",
+    required: false,
+  },
+  contactNumber: {
+    order: 8,
+    type: "string",
+    slug: "contactNumber",
+    label: "Contact Number",
+    required: false,
+  },
+};
