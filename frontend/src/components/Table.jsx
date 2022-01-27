@@ -20,7 +20,7 @@ const CustomTable = ({ usersData = [], setUsersData }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   const [showViewModal, setShowViewModal] = useState(false);
-  console.log("usersData", usersData);
+
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(

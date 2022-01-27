@@ -8,7 +8,6 @@ const AdminPage = () => {
   useEffect(async () => {
     try {
       const response = await axios.get("http://localhost:8080/get-all");
-      console.log("response AdminPage", response);
       setUsers(response.data.map((d) => ({ key: d.userId, ...d })));
     } catch (error) {
       console.log(error);
