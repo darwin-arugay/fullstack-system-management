@@ -10,10 +10,15 @@ exports.getAll = (req, res, next) => {
 };
 
 exports.login = (req, res) => {
-  const { username, password } = req.body;
-  User.login(username, password)
+  const { username } = req.body;
+  User.login(username)
     .then(([rows]) => {
-      res.status(200).send("Account is registered, successfully login.");
+      res
+        .status(200)
+        .send({
+          data: rows,
+          message: "Account is registered, successfully login.",
+        });
     })
     .catch((err) => {
       res.status(401).send("Failed to login, please try again.");

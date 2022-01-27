@@ -16,8 +16,25 @@ const LoginPage = () => {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post("http://localhost:8080/login", values);
-      notification.success({ message: "SUCCESS", description: response.data });
-      navigate("/admin", { replace: true });
+
+      const {
+        data: { message, data },
+      } = response;
+      const isRegistered = data.filter(
+        (d) => d.username === values.username && d.password === values.password
+      );
+      if (isRegistered.length !== 0) {
+        notification.success({
+          message: "SUCCESS",
+          description: message,
+        });
+        navigate("/admin", { replace: true });
+      } else {
+        notification.error({
+          message: "ERROR",
+          description: "Wrong credentials",
+        });
+      }
     } catch (err) {
       notification.error({ message: "ERROR", description: err.message });
     }
