@@ -3,9 +3,25 @@ import { Button, Col, Form, Row, Input, notification } from "antd";
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { generateYup } from "../../utils/generateYup";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
+  const loginSchema = {
+    username: {
+      type: "string",
+      slug: "username",
+      label: "Username",
+      required: true,
+    },
+    password: {
+      type: "password",
+      slug: "password",
+      label: "Password",
+      required: true,
+    },
+  };
 
   const defaultValues = {
     username: "",
@@ -15,6 +31,7 @@ const LoginPage = () => {
   const { control, handleSubmit } = useForm({ defaultValues });
   const onSubmit = async (values) => {
     try {
+      await generateYup(loginSchema).validate(values);
       const response = await axios.post("http://localhost:8080/login", values);
 
       const {
@@ -68,7 +85,7 @@ const LoginPage = () => {
               control={control}
               render={({ field: { onChange, value } }) => (
                 <Form.Item>
-                  <Input
+                  <Input.Password
                     onChange={onChange}
                     placeholder="Password"
                     value={value}

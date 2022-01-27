@@ -33,7 +33,6 @@
 
 ## Front-end
 
-1. `$ cd frontend` folder then do the ff:
-
-- `$ npm install` - install dependencies
-- `$ npm start` - start the application
+- `$ cd frontend` folder then do the ff:
+  - `$ npm install` - install dependencies
+  - `$ npm start` - start the application

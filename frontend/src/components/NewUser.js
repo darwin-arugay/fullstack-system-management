@@ -1,10 +1,14 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Button, Col, Modal, Input, Form, Row, notification } from "antd";
+import React, { useEffect, useMemo } from "react";
+import { Button, Col, Modal, Form, Row, notification } from "antd";
 import { Controller, useForm } from "react-hook-form";
 import { isEmpty } from "lodash";
 import axios from "axios";
 
 import { userSchema } from "../usersSchema.js";
+
+// COMPONENTS
+import { InputWrapper } from "./InputWrapper.jsx";
+import { generateYup } from "../utils/generateYup.js";
 
 const NewUserModal = ({
   showModal = false,
@@ -33,16 +37,11 @@ const NewUserModal = ({
     return { defaultValues, fields };
   });
 
-  const {
-    handleSubmit,
-    watch,
-    formState: { errors },
-    control,
-    reset,
-  } = useForm({ defaultValues });
+  const { handleSubmit, control, reset } = useForm({ defaultValues });
 
   const onSubmit = async (values) => {
     try {
+      await generateYup(userSchema).validate(values);
       if (isEmpty(form)) {
         const response = await axios.post(
           "http://localhost:8080/add-user",
@@ -80,17 +79,17 @@ const NewUserModal = ({
       }
       close();
     } catch (err) {
-      notification.error({ message: "SUCCESS", description: err.message });
+      notification.error({ message: "ERROR", description: err.message });
     }
   };
-  const renderFields = ({ id, label }) => {
+  const renderFields = ({ id, label, ...rest }) => {
     return (
       <Controller
         name={id}
         control={control}
-        render={({ field: { onChange, onBlur, value, name, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <Form.Item label={label}>
-            <Input onChange={onChange} value={value} />
+            <InputWrapper onChange={onChange} value={value} {...rest} />
           </Form.Item>
         )}
       />
@@ -125,11 +124,9 @@ const NewUserModal = ({
       <Form layout="vertical" requiredMark>
         <Row gutter={[16, 16]}>
           {fields.map((field) => {
-            const { slug, label, required } = field;
+            const { slug } = field;
             return (
-              <Col {...colSizes}>
-                {renderFields({ id: slug, label, required })}
-              </Col>
+              <Col {...colSizes}>{renderFields({ id: slug, ...field })}</Col>
             );
           })}
         </Row>
