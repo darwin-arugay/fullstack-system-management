@@ -90,8 +90,8 @@ const NewUserModal = ({
         render={({ field: { onChange, value } }) => (
           <Form.Item
             label={label}
-            name={id}
-            rules={[{ required: rest.required }]}
+            // name={id}
+            // rules={[{ required: rest.required }]}
           >
             <InputWrapper onChange={onChange} value={value} {...rest} />
           </Form.Item>
@@ -110,6 +110,7 @@ const NewUserModal = ({
     if (!isEmpty(form)) reset(form);
     else reset(defaultValues);
   }, [form]);
+  console.log(form);
 
   const colSizes = { xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 };
   const title = label ? label : !isEmpty(form) ? "Edit user" : "Add new user";
