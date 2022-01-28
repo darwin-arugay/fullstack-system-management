@@ -9,16 +9,18 @@ const ViewUser = ({ showModal = false, closeModal, form = {} }) => {
   const renderFields = () => {
     const keys = Object.keys(userSchema);
     return keys.map((key) => {
-      const { label } = userSchema[key];
+      const { label, slug } = userSchema[key];
       return (
         <Col {...colSizes}>
           <Statistic
             title={label}
             value={form[key]}
             formatter={(value) => {
+              const newValue =
+                slug === "password" ? value.replace(/./g, "*") : value;
               return (
                 <span style={{ fontSize: "10pt", fontWeigth: "700" }}>
-                  {value ? value : "N/A"}
+                  {newValue ? newValue : "N/A"}
                 </span>
               );
             }}

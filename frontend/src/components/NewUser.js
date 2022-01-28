@@ -88,7 +88,11 @@ const NewUserModal = ({
         name={id}
         control={control}
         render={({ field: { onChange, value } }) => (
-          <Form.Item label={label}>
+          <Form.Item
+            label={label}
+            name={id}
+            rules={[{ required: rest.required }]}
+          >
             <InputWrapper onChange={onChange} value={value} {...rest} />
           </Form.Item>
         )}
@@ -122,7 +126,7 @@ const NewUserModal = ({
       }
     >
       <Form layout="vertical" requiredMark>
-        <Row gutter={[16, 16]}>
+        <Row gutter={[16, 8]}>
           {fields.map((field) => {
             const { slug } = field;
             return (

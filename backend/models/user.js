@@ -62,7 +62,6 @@ module.exports = class User {
   }
 
   static deleteMultiple(ids) {
-    console.log("ids", ids);
     return db.execute("DELETE FROM users WHERE userId IN ?", [ids]);
   }
   static fetchAll() {

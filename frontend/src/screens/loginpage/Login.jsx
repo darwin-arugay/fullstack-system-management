@@ -59,22 +59,28 @@ const LoginPage = () => {
   const colSizes = { xs: 24, sm: 24, lg: 24, xl: 24, xxl: 24 };
   return (
     <div className="center">
-      <p style={{ magrinBottom: 20 }}>
-        <b>Login:</b> Please enter your username and password.
-      </p>
-      <Form>
+      <h1 style={{ magrinBottom: 20 }}>Welcome to SYSTEM MANAGEMENT</h1>
+      <Form
+        layout="vertical"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 24,
+        }}
+      >
         <Row gutter={[8, 8]}>
           <Col {...colSizes}>
             <Controller
               name="username"
               control={control}
               render={({ field: { onChange, value } }) => (
-                <Form.Item>
-                  <Input
-                    onChange={onChange}
-                    placeholder="Username"
-                    value={value}
-                  />
+                <Form.Item
+                  name="username"
+                  rules={[{ required: true }]}
+                  label="Username"
+                >
+                  <Input onChange={onChange} value={value} />
                 </Form.Item>
               )}
             />
@@ -84,19 +90,21 @@ const LoginPage = () => {
               name="password"
               control={control}
               render={({ field: { onChange, value } }) => (
-                <Form.Item>
-                  <Input.Password
-                    onChange={onChange}
-                    placeholder="Password"
-                    value={value}
-                  />
+                <Form.Item
+                  name="password"
+                  rules={[{ required: true }]}
+                  label="Password"
+                >
+                  <Input.Password onChange={onChange} value={value} />
                 </Form.Item>
               )}
             />
           </Col>
           <Col {...colSizes}>
             <Form.Item>
-              <Button onClick={handleSubmit(onSubmit)}>Login</Button>
+              <Button onClick={handleSubmit(onSubmit)} type="primary">
+                Login
+              </Button>
             </Form.Item>
           </Col>
         </Row>

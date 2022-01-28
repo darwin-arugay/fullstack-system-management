@@ -100,6 +100,9 @@ const CustomTable = ({ usersData = [], setUsersData }) => {
         key: slug,
         dataIndex: slug,
         title: label,
+        render: (value) => (
+          <span>{slug === "password" ? value.replace(/./g, "* ") : value}</span>
+        ),
       };
     });
   }, [userSchema]);
@@ -108,9 +111,22 @@ const CustomTable = ({ usersData = [], setUsersData }) => {
       title: "Actions",
       dataIndex: "userId",
       key: "action",
+      style: { width: 100 },
       render: (id) => {
         return (
           <>
+            <Button
+              type="text"
+              onClick={(e) => {
+                handleEdit(id);
+              }}
+              size="medium"
+            >
+              <EditOutlined />
+            </Button>
+            <Button type="text" onClick={() => handleView(id)} size="medium">
+              <EyeOutlined />
+            </Button>
             <Popconfirm
               title="Are you sure to delete this user?"
               onConfirm={() => handleDelete(id)}
@@ -118,21 +134,10 @@ const CustomTable = ({ usersData = [], setUsersData }) => {
               okText="Yes"
               cancelText="No"
             >
-              <Button type="text">
+              <Button type="text" size="medium">
                 <DeleteOutlined />
               </Button>
             </Popconfirm>
-            <Button
-              type="text"
-              onClick={(e) => {
-                handleEdit(id);
-              }}
-            >
-              <EditOutlined />
-            </Button>
-            <Button type="text" onClick={() => handleView(id)}>
-              <EyeOutlined />
-            </Button>
           </>
         );
       },
@@ -166,6 +171,7 @@ const CustomTable = ({ usersData = [], setUsersData }) => {
         columns={columns}
         pagination={false}
         rowSelection={rowSelection}
+        size="small"
       />
       <NewUserModal
         showModal={showModal}

@@ -13,12 +13,10 @@ exports.login = (req, res) => {
   const { username } = req.body;
   User.login(username)
     .then(([rows]) => {
-      res
-        .status(200)
-        .send({
-          data: rows,
-          message: "Account is registered, successfully login.",
-        });
+      res.status(200).send({
+        data: rows,
+        message: "Account is registered, successfully login.",
+      });
     })
     .catch((err) => {
       res.status(401).send("Failed to login, please try again.");
@@ -122,7 +120,6 @@ exports.updateUser = (req, res) => {
 
 exports.deleteUser = (req, res) => {
   const userId = req.params.userId;
-  console.log(userId);
   User.deleteById(userId)
     .then(() => {
       res.status(200).send("Successfully deleted.");
